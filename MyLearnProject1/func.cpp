@@ -18,10 +18,9 @@ HWND initWindow(HINSTANCE hInstance)
     RegisterClass(&wc);
 
     // 创建窗口
-    hwndWindow = CreateWindowEx(WS_EX_TOOLWINDOW, CLASS_NAME, L"", WS_POPUP,
-        CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, NULL, NULL, hInstance, NULL);
+    hwndWindow = CreateWindowEx(WS_EX_NOACTIVATE, CLASS_NAME, L"", WS_CHILDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, GetDesktopWindow(), NULL, hInstance, NULL);
     assert(hwndWindow != NULL);
-    
 
     // 创建子控件-切换pin状态按钮
     hwndTogglePinBtn = CreateWindow(
@@ -98,11 +97,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (HWND(lParam) == hwndTogglePinBtn)
             {
                 bPin = !bPin;
-                if (bPin)
-                    SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-                else
-                    SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-
                 return 0;
             }
             else if (HWND(lParam) == hwndCloseBtn) {
@@ -110,7 +104,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 return 0;
             }
         }
-        
     }
 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);

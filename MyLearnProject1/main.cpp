@@ -9,7 +9,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     // Register the window class.
     HWND hwnd = initWindow(hInstance);
 
+    // 显示窗口
     ShowWindow(hwnd, nCmdShow);
+    // 设置到底部
+    //SetWindowPos(hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
     // Run the message loop.
 
